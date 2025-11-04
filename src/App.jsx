@@ -1,13 +1,11 @@
-import logo from "../images/Vector.png";
-import profileImage from "../images/Jacques-Cousteau.jpg";
+import Header from "./components/Header/Header";
+import profileImage from "./images/Jacques-Cousteau.jpg";
 
 function App() {
   return (
     <>
       <div class="page">
-        <header class="header">
-          <img src={logo} alt="logo-around" class="header__image" />
-        </header>
+        <Header></Header>
         <main class="content">
           <section class="profile">
             <div class="profile__person-conteiner">
