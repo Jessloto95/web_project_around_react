@@ -1,3 +1,7 @@
+import profileImage from "../../images/Jacques-Cousteau.jpg";
+import buttonEdit from "../../images/button_edit.png";
+import buttonAdd from "../../images/button_add.png";
+
 function Main(){
   return(
     <main class="content">
@@ -17,7 +21,7 @@ function Main(){
                   <button class="profile__edit-button">
                     <img
                       class="profile__edit-button-img"
-                      src="../images/button_edit.png"
+                      src={buttonEdit}
                       alt="Boton para editar perfil"
                     />
                   </button>
@@ -25,7 +29,7 @@ function Main(){
                 <button class="profile__add-button">
                   <img
                     class="profile__add-button-img"
-                    src="../images/button_add.png"
+                    src={buttonAdd}
                     alt="Boton para agregar nueva imagen"
                   />
                 </button>
