@@ -4,11 +4,17 @@ import buttonEdit from "../../images/button_edit.png";
 import buttonAdd from "../../images/button_add.png";
 import Popup from "./Components/Popup/Popup";
 import NewCard from "./Components/Popup/NewCard/NewCard";
+import EditProfile from "./Components/Popup/EditProfile/EditProfile";
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+
+  const editProfilePopup = {
+    title: "Editar perfil",
+    children: <EditProfile />,
+  };
 
   function handleOpenPopup(popup) {
     console.log("Prueba", popup);
@@ -32,7 +38,7 @@ export default function Main() {
           </div>
           <button
             class="profile__edit-button"
-            onClick={() => handleOpenPopup(newCardPopup)}
+            onClick={() => handleOpenPopup(editProfilePopup)}
           >
             <img
               class="profile__edit-button-img"
@@ -41,7 +47,10 @@ export default function Main() {
             />
           </button>
         </div>
-        <button class="profile__add-button">
+        <button
+          class="profile__add-button"
+          onClick={() => handleOpenPopup(newCardPopup)}
+        >
           <img
             class="profile__add-button-img"
             src={buttonAdd}
