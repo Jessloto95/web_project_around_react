@@ -3,11 +3,13 @@ export default function Popup(props) {
   const { onClose, title, children } = props;
   return (
     <div className="popup">
-      <div className="popup__content">
-        <button className="popup__close" type="button" onClick={onClose}>
+      <div className="popup__conteiner">
+        <button className="popup__button popup__button_close" type="button" onClick={onClose}>
           &#x1F7A9;
         </button>
+        <form className="popup__content" >
         <h2 className="popup__title">{title}</h2>
+        </form>
         {children}
       </div>
     </div>

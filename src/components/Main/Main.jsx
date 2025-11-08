@@ -5,6 +5,29 @@ import buttonAdd from "../../images/button_add.png";
 import Popup from "./Components/Popup/Popup";
 import NewCard from "./Components/Popup/NewCard/NewCard";
 import EditProfile from "./Components/Popup/EditProfile/EditProfile";
+import EditAvatar from "./Components/Popup/EditAvatar/EditAvatar";
+import Card from "./Components/Card/Card";
+
+const cards = [
+  {
+    isLiked: false,
+    _id: "5d1f0611d321eb4bdcd707dd",
+    name: "Yosemite Valley",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+    owner: "5d1f0611d321eb4bdcd707dd",
+    createdAt: "2019-07-05T08:10:57.741Z",
+  },
+  {
+    isLiked: false,
+    _id: "5d1f064ed321eb4bdcd707de",
+    name: "Lake Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
+    owner: "5d1f0611d321eb4bdcd707dd",
+    createdAt: "2019-07-05T08:11:58.324Z",
+  },
+];
+
+console.log(cards);
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
@@ -14,6 +37,11 @@ export default function Main() {
   const editProfilePopup = {
     title: "Editar perfil",
     children: <EditProfile />,
+  };
+
+  const editAvatarPopup = {
+    title: "Cambiar foto de perfil",
+    children: <EditAvatar />,
   };
 
   function handleOpenPopup(popup) {
@@ -28,37 +56,48 @@ export default function Main() {
   return (
     <main className="content">
       <section className="profile">
-        <div className="profile__person-conteiner">
-          <img class="profile__person" src={profileImage} alt="profile-image" />
+        <div
+          className="profile__person-conteiner"
+          onClick={() => handleOpenPopup(editAvatarPopup)}
+        >
+          <img
+            className="profile__person"
+            src={profileImage}
+            alt="profile-image"
+          />
         </div>
-        <div class="profile__content">
-          <div class="profile__paragraph">
-            <p class="profile__name">Jacques Cousteau</p>
-            <p class="profile__hobbie">Explorador</p>
+        <div className="profile__content">
+          <div className="profile__paragraph">
+            <p className="profile__name">Jacques Cousteau</p>
+            <p className="profile__hobbie">Explorador</p>
           </div>
           <button
-            class="profile__edit-button"
+            className="profile__edit-button"
             onClick={() => handleOpenPopup(editProfilePopup)}
           >
             <img
-              class="profile__edit-button-img"
+              className="profile__edit-button-img"
               src={buttonEdit}
               alt="Boton para editar perfil"
             />
           </button>
         </div>
         <button
-          class="profile__add-button"
+          className="profile__add-button"
           onClick={() => handleOpenPopup(newCardPopup)}
         >
           <img
-            class="profile__add-button-img"
+            className="profile__add-button-img"
             src={buttonAdd}
             alt="Boton para agregar nueva imagen"
           />
         </button>
       </section>
-      <section class="card"></section>
+      <section className="card">
+        {cards.map((card) => (
+          <Card key={card._id} card={card} />
+        ))}
+      </section>
       {popup && (
         <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}
