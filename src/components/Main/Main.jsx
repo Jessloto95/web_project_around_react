@@ -7,6 +7,7 @@ import NewCard from "./Components/Popup/NewCard/NewCard";
 import EditProfile from "./Components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./Components/Popup/EditAvatar/EditAvatar";
 import Card from "./Components/Card/Card";
+import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
 
 const cards = [
   {
@@ -95,7 +96,7 @@ export default function Main() {
       </section>
       <section className="card">
         {cards.map((card) => (
-          <Card key={card._id} card={card} />
+          <Card key={card._id} card={card} onOpenPopup={handleOpenPopup} />
         ))}
       </section>
       {popup && (

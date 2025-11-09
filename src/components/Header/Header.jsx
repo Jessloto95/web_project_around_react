@@ -1,11 +1,11 @@
 import logo from "../../images/Vector.png";
 
-function Header(){
-    return(
-            <header class="header">
-                    <img src={logo} alt="logo-around" class="header__image" />
-                </header>
-    )
+function Header() {
+  return (
+    <header className="header">
+      <img src={logo} alt="logo-around" className="header__image" />
+    </header>
+  );
 }
 
-export default Header
+export default Header;
