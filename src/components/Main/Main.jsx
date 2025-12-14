@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import profileImage from "../../images/Jacques-Cousteau.jpg";
 import buttonEdit from "../../images/button_edit.png";
 import buttonAdd from "../../images/button_add.png";
@@ -8,8 +8,9 @@ import EditProfile from "./Components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./Components/Popup/EditAvatar/EditAvatar";
 import Card from "./Components/Card/Card";
 import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
+import api from "../../utils/api"
 
-const cards = [
+/* const cards = [
   {
     isLiked: false,
     _id: "5d1f0611d321eb4bdcd707dd",
@@ -28,9 +29,21 @@ const cards = [
   },
 ];
 
-console.log(cards);
+console.log(cards); */
 
 export default function Main() {
+  const [cards, setCards]= useState([]);
+
+  useEffect(() => {
+    api.getInitialCards()
+    .then((data) => {
+      setCards(data);
+    })
+    .catch((error) => {
+        console.error("Error al cargar las tarjetas:", error);  
+      });
+  }, []); 
+  
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
