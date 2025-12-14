@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import profileImage from "../../images/Jacques-Cousteau.jpg";
 import buttonEdit from "../../images/button_edit.png";
 import buttonAdd from "../../images/button_add.png";
@@ -8,42 +9,23 @@ import EditProfile from "./Components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./Components/Popup/EditAvatar/EditAvatar";
 import Card from "./Components/Card/Card";
 import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
-import api from "../../utils/api"
-
-/* const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
-
-console.log(cards); */
+import api from "../../utils/api";
 
 export default function Main() {
-  const [cards, setCards]= useState([]);
+  const currentUser = useContext(CurrentUserContext);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getInitialCards()
-    .then((data) => {
-      setCards(data);
-    })
-    .catch((error) => {
-        console.error("Error al cargar las tarjetas:", error);  
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((error) => {
+        console.error("Error al cargar las tarjetas:", error);
       });
-  }, []); 
-  
+  }, []);
+
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
@@ -76,14 +58,14 @@ export default function Main() {
         >
           <img
             className="profile__person"
-            src={profileImage}
+            src={currentUser.avatar}
             alt="profile-image"
           />
         </div>
         <div className="profile__content">
           <div className="profile__paragraph">
-            <p className="profile__name">Jacques Cousteau</p>
-            <p className="profile__hobbie">Explorador</p>
+            <p className="profile__name">{currentUser.name}</p>
+            <p className="profile__hobbie">{currentUser.about}</p>
           </div>
           <button
             className="profile__edit-button"

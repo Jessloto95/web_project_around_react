@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 import ImagePopup from "../Popup/ImagePopup/ImagePopup";
 
 export default function Card({ card, onOpenPopup }) {
-  const [isLiked, setIsLiked] = useState(false);
-  function handleLikeClick() {
-    setIsLiked(!isLiked);
-  }
-  console.log("Card data:", card);
+  console.log("Card object:", card);
+  const currentUser = useContext(CurrentUserContext);
+
+  const isLiked = card.likes
+    ? card.likes.some((user) => user._id === currentUser._id)
+    : false;
+
+  const cardLikeButtonClassName = `card__button-like ${
+    isLiked ? "card__button-like_active" : ""
+  }`;
+
+  const handleLikeClick = () => {
+    console.log("Like toggled for card:", card._id);
+  };
 
   const imageComponent = { title: "", children: <ImagePopup card={card} /> };
 
@@ -22,12 +32,7 @@ export default function Card({ card, onOpenPopup }) {
       <button className="card__button-delete" id="deleteCard"></button>
       <div className="card__info">
         <p className="card__photo-name">{card.name}</p>
-        <button
-          className={`card__button-like ${
-            isLiked ? "card__button-like_active" : ""
-          }`}
-          onClick={handleLikeClick}
-        >
+        <button className={cardLikeButtonClassName} onClick={handleLikeClick}>
           <img
             className="card__button-like-image"
             src="./images/button_like.png"
