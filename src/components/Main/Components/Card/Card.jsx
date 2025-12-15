@@ -2,8 +2,7 @@ import { useState, useContext } from "react";
 import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 import ImagePopup from "../Popup/ImagePopup/ImagePopup";
 
-export default function Card({ card, onOpenPopup }) {
-  console.log("Card object:", card);
+export default function Card({ card, onOpenPopup, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
   const isLiked = card.likes
@@ -15,7 +14,11 @@ export default function Card({ card, onOpenPopup }) {
   }`;
 
   const handleLikeClick = () => {
-    console.log("Like toggled for card:", card._id);
+    onCardLike(card);
+  };
+
+  const handleDeleteClick = () => {
+    onCardDelete(card);
   };
 
   const imageComponent = { title: "", children: <ImagePopup card={card} /> };
@@ -29,7 +32,11 @@ export default function Card({ card, onOpenPopup }) {
         alt={card.name}
         onClick={() => onOpenPopup(imageComponent)}
       />
-      <button className="card__button-delete" id="deleteCard"></button>
+      <button
+        className="card__button-delete"
+        id="deleteCard"
+        onClick={handleDeleteClick}
+      ></button>
       <div className="card__info">
         <p className="card__photo-name">{card.name}</p>
         <button className={cardLikeButtonClassName} onClick={handleLikeClick}>

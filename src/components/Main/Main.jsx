@@ -19,6 +19,7 @@ export default function Main() {
     api
       .getInitialCards()
       .then((data) => {
+        console.log("Datos iniciales de cards:", data);
         setCards(data);
       })
       .catch((error) => {
@@ -47,6 +48,41 @@ export default function Main() {
 
   function handleClosePopup() {
     setPopup(null);
+  }
+
+  async function handleCardLike(card) {
+    const isLiked = card.isLiked;
+
+    try {
+      let newCard;
+      if (isLiked) {
+        // Si ya está liked, quitar like
+        newCard = await api.removeLikeCard(card._id);
+      } else {
+        // Si no está liked, agregar like
+        newCard = await api.likeCard(card._id);
+      }
+
+      // Actualizar estado: reemplazar la tarjeta modificada
+      setCards((state) =>
+        state.map((currentCard) =>
+          currentCard._id === card._id ? newCard : currentCard
+        )
+      );
+    } catch (error) {
+      console.error("Error al cambiar like:", error);
+    }
+  }
+
+  async function handleCardDelete(card) {
+    try {
+      await api.deleteCard(card._id);
+      setCards((state) =>
+        stete.filter((currentCard) => currentCard._id !== card._id)
+      );
+    } catch (error) {
+      console.error("Error al eliminar tarjeta:", error);
+    }
   }
 
   return (
@@ -91,7 +127,13 @@ export default function Main() {
       </section>
       <section className="card">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onOpenPopup={handleOpenPopup} />
+          <Card
+            key={card._id}
+            card={card}
+            onOpenPopup={handleOpenPopup}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+          />
         ))}
       </section>
       {popup && (
