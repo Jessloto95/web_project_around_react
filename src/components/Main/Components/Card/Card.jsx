@@ -5,12 +5,9 @@ import ImagePopup from "../Popup/ImagePopup/ImagePopup";
 export default function Card({ card, onOpenPopup, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const isLiked = card.likes
-    ? card.likes.some((user) => user._id === currentUser._id)
-    : false;
 
   const cardLikeButtonClassName = `card__button-like ${
-    isLiked ? "card__button-like_active" : ""
+    card.isLiked ? "card__button-like_active" : ""
   }`;
 
   const handleLikeClick = () => {

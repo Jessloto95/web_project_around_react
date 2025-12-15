@@ -56,10 +56,8 @@ export default function Main() {
     try {
       let newCard;
       if (isLiked) {
-        // Si ya está liked, quitar like
         newCard = await api.removeLikeCard(card._id);
       } else {
-        // Si no está liked, agregar like
         newCard = await api.likeCard(card._id);
       }
 
@@ -78,7 +76,7 @@ export default function Main() {
     try {
       await api.deleteCard(card._id);
       setCards((state) =>
-        stete.filter((currentCard) => currentCard._id !== card._id)
+        state.filter((currentCard) => currentCard._id !== card._id)
       );
     } catch (error) {
       console.error("Error al eliminar tarjeta:", error);
