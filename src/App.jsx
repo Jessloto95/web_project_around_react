@@ -8,20 +8,28 @@ import CurrentUserContext from "./contexts/CurrentUserContext";
 function App() {
   const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
-    api
-      .getUser()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch((error) => {
-        console.error("Error al cargar usuario:", error);
+
+  useEffect (() => {
+    (async () => {
+      await api.getUser().then((data) => {
+        
+        setCurrentUser(data)
       });
+    })();
   }, []);
+
+  
+  const handleUpdateUser = (data) => {
+    api.getUser(data).then((newData) => {
+      setCurrentUser(newData);
+      handleClosePopup();
+    })
+    .catch((error) => console.error(error));
+  };
 
   return (
     <>
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={{currentUser, handleUpdateUser}}>
         <div className="page">
           <Header></Header>
           <Main></Main>

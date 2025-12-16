@@ -14,10 +14,10 @@ export default function Popup(props) {
           &#x1F7A9;
         </button>
         {title ? (
-          <form className="popup__content">
+          <div className="popup__content">
             {title && <h2 className="popup__title">{title}</h2>}
             {children}
-          </form>
+          </div>
         ) : (
           children
         )}

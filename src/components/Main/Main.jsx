@@ -12,9 +12,9 @@ import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
 import api from "../../utils/api";
 
 export default function Main() {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
-
+console.log(currentUser)
   useEffect(() => {
     api
       .getInitialCards()
@@ -92,14 +92,14 @@ export default function Main() {
         >
           <img
             className="profile__person"
-            src={currentUser.avatar}
+            src={currentUser?.avatar}
             alt="profile-image"
           />
         </div>
         <div className="profile__content">
           <div className="profile__paragraph">
-            <p className="profile__name">{currentUser.name}</p>
-            <p className="profile__hobbie">{currentUser.about}</p>
+            <p className="profile__name">{currentUser?.name}</p>
+            <p className="profile__hobbie">{currentUser?.about}</p>
           </div>
           <button
             className="profile__edit-button"

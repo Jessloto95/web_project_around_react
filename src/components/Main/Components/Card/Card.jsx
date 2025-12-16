@@ -3,7 +3,7 @@ import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 import ImagePopup from "../Popup/ImagePopup/ImagePopup";
 
 export default function Card({ card, onOpenPopup, onCardLike, onCardDelete }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
 
   const cardLikeButtonClassName = `card__button-like ${
