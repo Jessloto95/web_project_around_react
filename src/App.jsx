@@ -29,6 +29,15 @@ function App() {
     .catch((error) => console.error(error));
   };
 
+  const handleUpdateAvatar = (data) => {
+    api.editAvatar(data.avatar)
+    .then((newUserData) => {
+      setCurrentUser(newUserData);
+      handleClosePopup();
+    })
+    .catch((error) => console.error(error));
+  };
+
   const handleOpenPopup = (popupData) => {
     setPopup(popupData);
   }
@@ -39,7 +48,7 @@ function App() {
 
   return (
     <>
-      <CurrentUserContext.Provider value={{currentUser, handleUpdateUser}}>
+      <CurrentUserContext.Provider value={{currentUser, handleUpdateUser, handleUpdateAvatar}}>
         <div className="page">
           <Header></Header>
           <Main

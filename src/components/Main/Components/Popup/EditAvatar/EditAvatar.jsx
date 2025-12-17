@@ -1,8 +1,24 @@
+import { useRef, useContext } from "react";
+import CurrentUserContext from "../../../../../contexts/CurrentUserContext";
+
 export default function EditAvatar() {
+  const {handleUpdateAvatar } = useContext(CurrentUserContext);
+  const avatarRef = useRef(); //Crea la referencia
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  //optener el valor directamente del DOM
+   handleUpdateAvatar({
+      avatar: avatarRef.current.value
+    });
+}
+
   return (
-    <form className="popup__content" id="formEditAvatar" novalidate>
+    <form className="popup__content" id="formEditAvatar" onSubmit={handleSubmit}>
       <fieldset className="popup__form">
         <input
+        ref={avatarRef}
           type="url"
           className="popup__input popup__input_hobbie popup__input_type_error"
           placeholder="Enlace a la nueva imagen"
@@ -16,7 +32,7 @@ export default function EditAvatar() {
         ></span>
       </fieldset>
       <fieldset className="popup__form">
-        <button className="popup__button popup__button_save" disabled>
+        <button className="popup__button popup__button_save" type="submit" >
           Guardar
         </button>
       </fieldset>
