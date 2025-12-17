@@ -14,13 +14,13 @@ export default function EditProfile() {
   };
 
   const handleDescriptionChange = (event) => {
-     console.log("hola")
+    
     serDescription(event.target.value); // Actualiza description cuando cambie la entrada
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event)
+    
     handleUpdateUser({ name, about: description }); // Actualiza la información del usuario
   }
 
@@ -33,8 +33,8 @@ export default function EditProfile() {
           onChange={handleNameChange}
           className="popup__input popup__input_name popup__input_type_error"
           placeholder="Nombre"
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
           id="name"
           name="name"
           required

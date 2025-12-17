@@ -8,6 +8,8 @@ import CurrentUserContext from "./contexts/CurrentUserContext";
 function App() {
   const [currentUser, setCurrentUser] = useState({});
 
+  const [popup, setPopup] = useState(null);
+
 
   useEffect (() => {
     (async () => {
@@ -20,11 +22,19 @@ function App() {
 
   
   const handleUpdateUser = (data) => {
-    api.getUser(data).then((newData) => {
+    api.userEdit(data.name, data.about).then((newData) => {
       setCurrentUser(newData);
       handleClosePopup();
     })
     .catch((error) => console.error(error));
+  };
+
+  const handleOpenPopup = (popupData) => {
+    setPopup(popupData);
+  }
+
+  const handleClosePopup = () =>{
+    setPopup(null);
   };
 
   return (
@@ -32,7 +42,11 @@ function App() {
       <CurrentUserContext.Provider value={{currentUser, handleUpdateUser}}>
         <div className="page">
           <Header></Header>
-          <Main></Main>
+          <Main
+          popup={popup}
+          handleOpenPopup={handleOpenPopup}
+          handleClosePopup={handleClosePopup}
+          />
           <Footer></Footer>
         </div>
       </CurrentUserContext.Provider>

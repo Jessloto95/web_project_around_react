@@ -11,10 +11,10 @@ import Card from "./Components/Card/Card";
 import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
 import api from "../../utils/api";
 
-export default function Main() {
+export default function Main({popup, handleClosePopup, handleOpenPopup}) {
   const { currentUser } = useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
-console.log(currentUser)
+
   useEffect(() => {
     api
       .getInitialCards()
@@ -27,7 +27,6 @@ console.log(currentUser)
       });
   }, []);
 
-  const [popup, setPopup] = useState(null);
 
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
 
@@ -41,14 +40,6 @@ console.log(currentUser)
     children: <EditAvatar />,
   };
 
-  function handleOpenPopup(popup) {
-    console.log("Prueba", popup);
-    setPopup(popup);
-  }
-
-  function handleClosePopup() {
-    setPopup(null);
-  }
 
   async function handleCardLike(card) {
     const isLiked = card.isLiked;
