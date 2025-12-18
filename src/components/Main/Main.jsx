@@ -10,6 +10,7 @@ import EditAvatar from "./Components/Popup/EditAvatar/EditAvatar";
 import Card from "./Components/Card/Card";
 import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
 import api from "../../utils/api";
+import RemoveCard from "./Components/Popup/RemoveCard/RemoveCard.jsx";
 
 export default function Main({popup, handleClosePopup, handleOpenPopup, cards, onCardLike, onCardDelete}) {
   const { currentUser, handleAddPlaceSubmit } = useContext(CurrentUserContext);
