@@ -11,24 +11,10 @@ import Card from "./Components/Card/Card";
 import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup";
 import api from "../../utils/api";
 
-export default function Main({popup, handleClosePopup, handleOpenPopup}) {
-  const { currentUser } = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        console.log("Datos iniciales de cards:", data);
-        setCards(data);
-      })
-      .catch((error) => {
-        console.error("Error al cargar las tarjetas:", error);
-      });
-  }, []);
-
-
-  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+export default function Main({popup, handleClosePopup, handleOpenPopup, cards, onCardLike, onCardDelete}) {
+  const { currentUser, handleAddPlaceSubmit } = useContext(CurrentUserContext);
+  
+  const newCardPopup = { title: "Nuevo lugar", children: <NewCard  onAddPlaceSubmit={handleAddPlaceSubmit} /> };
 
   const editProfilePopup = {
     title: "Editar perfil",
@@ -39,40 +25,6 @@ export default function Main({popup, handleClosePopup, handleOpenPopup}) {
     title: "Cambiar foto de perfil",
     children: <EditAvatar />,
   };
-
-
-  async function handleCardLike(card) {
-    const isLiked = card.isLiked;
-
-    try {
-      let newCard;
-      if (isLiked) {
-        newCard = await api.removeLikeCard(card._id);
-      } else {
-        newCard = await api.likeCard(card._id);
-      }
-
-      // Actualizar estado: reemplazar la tarjeta modificada
-      setCards((state) =>
-        state.map((currentCard) =>
-          currentCard._id === card._id ? newCard : currentCard
-        )
-      );
-    } catch (error) {
-      console.error("Error al cambiar like:", error);
-    }
-  }
-
-  async function handleCardDelete(card) {
-    try {
-      await api.deleteCard(card._id);
-      setCards((state) =>
-        state.filter((currentCard) => currentCard._id !== card._id)
-      );
-    } catch (error) {
-      console.error("Error al eliminar tarjeta:", error);
-    }
-  }
 
   return (
     <main className="content">
@@ -120,8 +72,8 @@ export default function Main({popup, handleClosePopup, handleOpenPopup}) {
             key={card._id}
             card={card}
             onOpenPopup={handleOpenPopup}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
           />
         ))}
       </section>

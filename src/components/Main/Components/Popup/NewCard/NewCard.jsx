@@ -1,6 +1,26 @@
-export default function NewCard() {
+import { useState } from "react";
+
+export default function NewCard({onAddPlaceSubmit}) {
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleLinkChange = (event) => {
+    setLink(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onAddPlaceSubmit({name, link});// envia los datos a App
+    setName("");//limpia los campos
+    setLink("");
+  }
+
   return (
-    <form className="popup__content popup__form-add" id="submit_card">
+    <form className="popup__content popup__form-add" id="submit_card" onSubmit={handleSubmit} noValidate>
       <fieldset className="popup__form">
         <input
           type="text"
@@ -11,6 +31,8 @@ export default function NewCard() {
           maxLength="30"
           required
           name="title"
+          value={name}
+          onChange={handleNameChange}
         />
         <span
           id="inputNamePlace-error"
@@ -23,6 +45,8 @@ export default function NewCard() {
           placeholder="Enlace a la imagen"
           required
           name="url"
+          value={link}
+          onChange={handleLinkChange}
         />
         <span
           id="inputImagePlace-error"
