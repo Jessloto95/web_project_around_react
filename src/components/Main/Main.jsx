@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 import profileImage from "../../images/Jacques-Cousteau.jpg";
 import buttonEdit from "../../images/button_edit.png";
 import buttonAdd from "../../images/button_add.png";

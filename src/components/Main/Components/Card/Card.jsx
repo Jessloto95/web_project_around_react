@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import CurrentUserContext from "../../../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../../../contexts/CurrentUserContext.js";
 import ImagePopup from "../Popup/ImagePopup/ImagePopup";
 
 export default function Card({ card, onOpenPopup, onCardLike, onCardDelete }) {
